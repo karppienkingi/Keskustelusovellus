@@ -1,0 +1,55 @@
+<h1><span style="color:pink">Zip</span>Boing</h1>
+<hr>
+<br>
+
+<h3><b>{{ topic[1] }}</b></h3><br><br>
+
+
+{% for message in messages %}
+    {% if session.user_id == message[3] %}
+    <form action="/delete", method="POST">
+        <div class="messagebox"><b>{{ message[2] }}</b> 
+            |   <input type="submit" value="delete message"><hr><br>{{ message[1] }}</div>
+            <input type="hidden" name="message_id" value="{{ message[0] }}">
+            <input type="hidden" name="id" value="{{ topic[0] }}">
+        <br>
+    </form>
+    {% else %}
+        <div class="messagebox"><b>{{ message[2] }}</b><hr><br>{{ message[1] }}</div>
+        <br>
+    {% endif %}
+{% endfor %}
+
+{% if session.user_id %}
+    <form action="/send" method="POST">
+    <textarea name="message" rows="6" cols="40"></textarea><br>
+    <p>
+    <input type="submit" value="Send">
+    <input type="hidden" name="id" value="{{ topic[0] }}">
+    </form>
+{% endif %}
+
+<hr>
+<a href="/">Back to front page</a>
+
+<style>
+    .messagebox {
+        background-color: whitesmoke;
+        color: black;
+        padding: 10px;
+        width: 400px;
+        height: 50px, auto;
+        border-style: inset;
+        border-color: rgb(0, 0, 0);
+        border-width: 2px;
+    }
+
+    a {
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+    }
+
+    p {
+        text-indent: 262px;
+    }
+</style>

@@ -1,0 +1,18 @@
+<h1><span style="color:pink">Zip</span>Boing</h1>
+<hr>
+<br>
+
+<form action="/create" method="POST">
+    <select name="area">
+        <option disabled selected>Area</option>
+        {% for area in areas %}
+        <option name="choice" value="{{ area[0] }}">{{ area[0] }}</option>
+        {% endfor %}
+    </select>
+<p><b>Topic:</b><br>
+<input type="text" name="topic">
+<br>
+<b>Message:</b><br>
+<textarea name="message" rows="6" cols="40"></textarea> </p><br>
+<input type="submit" value="Create a new convo">
+</form>

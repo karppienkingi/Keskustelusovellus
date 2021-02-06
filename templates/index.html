@@ -1,0 +1,61 @@
+<h1><span style="color:pink">Zip</span>Boing</h1>
+<hr>
+<br>
+
+{% if session.user_id %}
+You are logged in. <a href="logout"> | logout</a>
+<p>
+    <br>
+</p>
+<a href="/new">New convo</a>
+    {% else %}
+    <a href="login">Sign in</a>
+    or
+    <a href="register">Create an account</a>
+    <p>
+        <br>
+    </p>
+    {% endif %}
+
+
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 1em;
+
+        }
+
+        .grid>div {
+            background-color: cadetblue;
+            padding: 2fr;
+
+        }
+
+        a {
+            color: rgb(66, 0, 14);
+            
+        }
+    </style>
+
+    <body>
+        <div class="grid">
+            {% for area in areas %}
+
+            <div>
+                <h4>{{ area[0] }}</h4>
+                <hr>
+                
+                {% for topic in topics %}
+                {% if topic[2] == area[1] %}
+                {{ topic[1] }} | <a href="/convo/{{ topic[0] }}">Join</a>
+                <br>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+        </div>
+    </body>
+
+    <hr>
