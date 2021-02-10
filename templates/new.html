@@ -4,7 +4,7 @@
 
 <form action="/create" method="POST">
     <select name="area">
-        <option disabled selected>Area</option>
+        <option disabled selected>Select area</option>
         {% for area in areas %}
         <option name="choice" value="{{ area[0] }}">{{ area[0] }}</option>
         {% endfor %}
@@ -18,3 +18,10 @@
 </form>
 <hr>
 <a href="/">Back to front page</a>
+
+<style>
+    a {
+            color: cornflowerblue;
+            
+        }
+</style>
