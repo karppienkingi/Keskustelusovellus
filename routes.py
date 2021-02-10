@@ -37,7 +37,7 @@ def register():
         if users.register(username, password, admin):
             return redirect("/")
         else:
-            return render_template("error.html", message="U done fucked up")
+            return render_template("error.html", message="Registration was not successful")
 
 
 @app.route("/logout")
@@ -54,6 +54,8 @@ def new():
 @app.route("/create", methods=["POST"])
 def create():
     topic = request.form["topic"]
+    if (topic == ""):
+        return render_template("error.html", message="You have to have a topic on your conversation")
     message = request.form["message"]
     name = request.form["area"]
     sql = "SELECT id FROM areas WHERE name=:name"
@@ -98,10 +100,28 @@ def send():
 
 @app.route("/delete", methods=["POST"])
 def delete():
-    print("helou")
     id = request.form["id"]
     message_id = request.form["message_id"]
     sql = "UPDATE messages SET visibility=0 WHERE id=:id"
     result = db.session.execute(sql, {"id":message_id})
     db.session.commit()
     return redirect("/convo/"+str(id))
+
+
+@app.route("/edit")
+def edit():
+    return render_template("error.html", message="This area is not yet defined")
+
+@app.route("/search")
+def search():
+    word = request.args["word"]
+    print(word)
+    visibility=1
+    if word == "":
+        return redirect("/")
+    sql = "SELECT messages.message, users.username, topics.id FROM messages, users, topics WHERE visibility=:visibility AND messages.sender_id=users.id AND topics.id=messages.topic_id AND messages.message LIKE :word ORDER BY sent_at ASC"
+    result = db.session.execute(sql, {"visibility":visibility, "word":"%"+word+"%"})
+    messages = result.fetchall()
+    print(messages)
+    return render_template("search.html", messages=messages)
+

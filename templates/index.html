@@ -1,26 +1,26 @@
 <h1><span style="color:pink">Zip</span>Boing</h1>
 <hr>
 <br>
-
+<p>
 {% if session.user_id %}
 You are logged in. | <a href="logout"> logout</a>
-<p>
-    <br>
-</p>
+
+
     {% else %}
     <a href="login">Sign in</a>
     or
     <a href="register">Create an account</a>
-    <p>
-        <br>
-    </p>
     {% endif %}
+</p>
 
     <body>
         <div class="searchbar">
-            <input type="text" class="searchbox__input" placeholder="Search from messages..."/>
-
+            <form action="/search" method="GET">
+            <input type="text" name="word" class="searchbox__input" placeholder="Search from messages..."/>
+            <button type="submit">Search</button>
+        </form>
         </div>
+
         <div class="grid">
             {% for area in areas %}
 
@@ -54,6 +54,7 @@ You are logged in. | <a href="logout"> logout</a>
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-gap: 1em;
+            
 
         }
 

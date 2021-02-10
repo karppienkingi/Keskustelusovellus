@@ -1,0 +1,20 @@
+<h1><span style="color:pink">Zip</span>Boing</h1>
+<hr>
+<br>
+
+{% for message in messages %}
+
+<a href="/convo/{{ message[2] }}">{{ message[0] }}</a>| <b>{{ message[1] }}</b>
+<br>
+
+{% endfor %}
+
+<hr>
+<a href="/">Back to front page</a>
+
+<style>
+    a {
+            color: cornflowerblue;
+            
+        }
+</style>
