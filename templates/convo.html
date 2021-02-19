@@ -1,32 +1,43 @@
-<h1><span style="color:pink">Zip</span>Boing</h1>
-<hr>
+<div class="header">
+    <a href="/"><h1><span style="color:pink">Zip</span>Boing</h1></a>
+    <hr>
+</div>
 <br>
 
 <h3><b>{{ topic[1] }}</b></h3><br><br>
 
 
 {% for message in messages %}
-    {% if session.user_id == message[3] %}
-    <form action="/delete", method="POST">
-        <div class="messagebox"><b>{{ message[2] }}</b> 
-            |   <input type="submit" value="delete message"><hr><br>{{ message[1] }}</div>
-            <input type="hidden" name="message_id" value="{{ message[0] }}">
-            <input type="hidden" name="id" value="{{ topic[0] }}">
-        <br>
+{% if session.user_id == message[3] %}
+
+<div class="messagebox"><b>{{ message[2] }}</b>
+    | <form action="/edit/{{ message[0] }}" , method="POST">
+        <input type="hidden" name="message_id" value="{{ message[0] }}">
+        <input type="submit" value="edit">
     </form>
-    {% else %}
-        <div class="messagebox"><b>{{ message[2] }}</b><hr><br>{{ message[1] }}</div>
-        <br>
-    {% endif %}
+    <form action="/delete" , method="POST">
+        <input type="submit" value="delete message">
+        <hr><br>{{ message[1] }}
+</div>
+<input type="hidden" name="message_id" value="{{ message[0] }}">
+<input type="hidden" name="id" value="{{ topic[0] }}">
+<br>
+</form>
+{% else %}
+<div class="messagebox"><b>{{ message[2] }}</b>
+    <hr><br>{{ message[1] }}
+</div>
+<br>
+{% endif %}
 {% endfor %}
 
 {% if session.user_id %}
-    <form action="/send" method="POST">
+<form action="/send" method="POST">
     <textarea name="message" rows="6" cols="40"></textarea><br>
     <p>
-    <input type="submit" value="Send">
-    <input type="hidden" name="id" value="{{ topic[0] }}">
-    </form>
+        <input type="submit" value="Send">
+        <input type="hidden" name="id" value="{{ topic[0] }}">
+</form>
 {% endif %}
 
 <hr>
@@ -43,11 +54,23 @@
         border-color: rgb(0, 0, 0);
         border-width: 2px;
     }
+    .header {
+        padding: 20px;
+        text-align: left;
+        
+    }
+    
+    .header > a {
+        text-decoration: none;
+        color: inherit;
+        font-size: large;
+    }
 
     a {
-            color: cornflowerblue;
-            
-        }
+        color: cornflowerblue;
+
+    }
+
     p {
         text-indent: 262px;
     }

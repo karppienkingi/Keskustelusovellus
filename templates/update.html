@@ -4,12 +4,15 @@
 </div>
 <br>
 
-{% for message in messages %}
 
-<a href="/convo/{{ message[2] }}">{{ message[0] }}</a>| <b>{{ message[1] }}</b>
-<br>
 
-{% endfor %}
+<form action="/update_message" method="POST">
+    <textarea name="message" rows="6" cols="40">{{ message }}</textarea><br>
+    <p>
+        <input type="submit" value="Update">
+        <input type="hidden" name="id" value="{{ id }}">
+</form>
+
 
 <hr>
 <a href="/">Back to front page</a>
@@ -26,8 +29,13 @@
         color: inherit;
         font-size: large;
     }
+
     a {
-            color: cornflowerblue;
-            
-        }
+        color: cornflowerblue;
+
+    }
+
+    p {
+        text-indent: 262px;
+    }
 </style>

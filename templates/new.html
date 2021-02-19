@@ -1,26 +1,40 @@
-<h1><span style="color:pink">Zip</span>Boing</h1>
-<hr>
+<div class="header">
+    <a href="/"><h1><span style="color:pink">Zip</span>Boing</h1></a>
+    <hr>
+</div>
 <br>
+<body>
+<p>
+    Creating a new conversation to <b>{{ area }}</b>
+</p>
 <form action="/create" method="POST">
-    <select name="area">
-        <option disabled selected>Select area</option>
-        {% for area in areas %}
-        <option name="choice" value="{{ area[0] }}">{{ area[0] }}</option>
-        {% endfor %}
-    </select>
-<p><b>Topic:</b><br>
-<input type="text" name="topic">
-<br>
-<b>Message:</b><br>
-<textarea name="message" rows="6" cols="40"></textarea> </p><br>
-<input type="submit" value="Create a new convo">
+    <p><b>Topic:</b><br>
+        <input type="text" name="topic">
+        <br>
+        <b>Message:</b><br>
+        <textarea name="message" rows="6" cols="40"></textarea>
+        <input type="hidden" name="id" value="{{ id }}">
+    </p><br>
+    <input type="submit" value="Create">
 </form>
 <hr>
 <a href="/">Back to front page</a>
+</body>
 
 <style>
-    a {
-            color: cornflowerblue;
-            
-        }
+    .header {
+        padding: 20px;
+        text-align: left;
+        
+    }
+    
+    .header > a {
+        text-decoration: none;
+        color: inherit;
+        font-size: large;
+    }
+    body>a {
+        color: cornflowerblue;
+
+    }
 </style>

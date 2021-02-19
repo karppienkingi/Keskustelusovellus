@@ -39,3 +39,25 @@ def user_id():
 
 def logout():
     del session["user_id"]
+
+def admin():
+    if user_id()==0:
+        return False
+    id = user_id()
+    sql = "SELECT admin FROM users WHERE id=:id"
+    result = db.session.execute(sql, {"id":id})
+    admin = result.fetchone()[0]
+    if admin == 1:
+        return True
+    else:
+        return False
+
+def check_rights(user_id, area_id):
+    sql = "SELECT user_id FROM accessrights WHERE user_id=:user_id AND area_id=:area_id"
+    result = db.session.execute(sql, {"user_id":user_id, "area_id":area_id})
+    rights = result.fetchone()
+    print(rights)
+    if rights == None:
+        return False
+    else:
+        return True

@@ -1,13 +1,34 @@
-<h1><span style="color:pink">Zip</span>Boing</h1>
-<hr>
-<br>
-<h3>Error: {{ message }}</h3>
-<p>
-<a href="/">Back to the front page</a>
+<div class="header">
+    <a href="/">
+        <h1><span style="color:pink">Zip</span>Boing</h1>
+    </a>
+    <hr>
+</div>
+
+<body>
+    <br>
+    <h3>Error: {{ message }}</h3>
+    <p>
+        <hr>
+        <a href="/">Back to the front page</a>
+</body>
 
 <style>
-    a {
-            color: cornflowerblue;
-            
-        }
+    .header {
+        padding: 20px;
+        text-align: left;
+
+    }
+
+    .header>a {
+        text-decoration: none;
+        color: inherit;
+        font-size: large;
+    }
+    
+
+    body>a {
+        color: cornflowerblue;
+
+    }
 </style>

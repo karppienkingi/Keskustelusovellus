@@ -1,71 +1,139 @@
-<h1><span style="color:pink">Zip</span>Boing</h1>
-<hr>
+<div class="header">
+    <a href="/"><h1><span style="color:pink">Zip</span>Boing</h1></a>
+    <hr>
+</header>
 <br>
-<p>
-{% if session.user_id %}
-You are logged in. | <a href="logout"> logout</a>
 
-
-    {% else %}
-    <a href="login">Sign in</a>
-    or
-    <a href="register">Create an account</a>
-    {% endif %}
-</p>
-
-    <body>
-        <div class="searchbar">
-            <form action="/search" method="GET">
-            <input type="text" name="word" class="searchbox__input" placeholder="Search from messages..."/>
+<body>
+    <p>
+        {% if session.user_id %}
+        You are logged in. | <a href="logout"> logout</a>
+    
+    
+        {% else %}
+        <a href="login">Sign in</a>
+        or
+        <a href="register">Create an account</a>
+        {% endif %}
+    </p>
+    <div class="searchbar">
+        <form action="/search" method="GET">
+            <input type="text" name="word" class="searchbox__input" placeholder="Search from messages..." />
             <button type="submit">Search</button>
         </form>
-        </div>
+    </div>
 
-        <div class="grid">
-            {% for area in areas %}
+    <div class="grid">
+        {% for area in areas %}
 
-            <div>
-                {% if session.user_id %}
-                <p><h4>{{ area[0] }}</h4> | <a href="/new">Start a new conversation</a></p>
-                {% else %}
-                    <h4>{{ area[0] }}</h4>
-                {% endif %}
-                <hr>
+        <div>
+            {% if session.user_id %}
+            <p>
+            <h4>{{ area[0] }}</h4>  <a href="/new/{{ area[1] }}">Start a new conversation</a></p>
+            {% else %}
+            <h4>{{ area[0] }}</h4>
+            {% endif %}
+            <hr>
 
-                
-                
-                {% for topic in topics %}
-                {% if topic[2] == area[1] %}
-                {{ topic[1] }} | <a href="/convo/{{ topic[0] }}">Join</a>
-                <br>
-                {% endif %}
-                {% endfor %}
-
-            </div>
+            {% for topic in topics %}
+            {% if topic[2] == area[1] %}
+            {{ topic[1] }} | <a href="/convo/{{ topic[0] }}">Join</a>
+            <br>
+            {% endif %}
             {% endfor %}
 
         </div>
-    </body>
+        {% endfor %}
 
-    <hr>
+    </div>
+    
 
-    <style>
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-gap: 1em;
-            
 
-        }
+    <div class="grid">
+        {% if admin %}
+        <p>
+        <h2>Your conversation areas</h2><br>
+        </p>
+        <b><a href="/create_area">Create a new private area</a></b><br>
+        <br>
+        {% else %}
+        <p>
+        <h2>Your private conversation areas</h2>
+        </p>
+        {% endif %}
 
-        .grid>div {
-            background-color: lavender;
-            padding: 2fr;
+        <p>
+            {% for private_area in private_areas %}
+            {% if session.user_id == private_area[2] %}
+        <div>
+            <h4>{{ private_area[0] }}</h4>  <a href="/add_users/{{ private_area[1] }}">Add members</a><br>
+            <a href="/new/{{ private_area[1] }}">Start a new conversation</a></p>
+            <hr>
+            {% for topic in topics %}
+            {% if topic[2] == private_area[1] %}
+            {{ topic[1] }} | <a href="/convo/{{ topic[0] }}">Join</a><br>
+            {% endif %}
+            {% endfor %}
 
-        }
+        </div>
+        {% else %}
+        <div>
+            <h4>{{ private_area[0] }}</h4> | <a href="/new/{{ private_area[1] }}">Start a new conversation</a></p>
+            <hr>
+            {% for topic in topics %}
+            {% if topic[2] == private_area[1] %}
+            {{ topic[1] }} | <a href="/convo/{{ topic[0] }}">Join</a><br>
+            {% endif %}
+            {% endfor %}
 
-        a {
-            color: cornflowerblue;
-            
-        }
-    </style>
+        </div>
+        {% endif %}
+        {% endfor %}
+        </p>
+
+    </div>
+</body>
+
+<hr>
+
+<style>
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(50px, auto);
+        grid-auto-columns: minmax(120px, auto);
+        grid-gap: 1em;
+
+
+    }
+
+    .grid>div {
+        background-color: lavender;
+        padding: 3fr;
+        border-radius: 2px;
+    }
+
+    .header {
+        padding: 20px;
+        text-align: left;
+        
+    }
+    
+    .header > a {
+        text-decoration: none;
+        color: inherit;
+        font-size: large;
+    }
+    
+    body>a {
+        color: cornflowerblue;
+    }
+
+    h2 {
+        text-decoration: underline;
+    }
+
+    p {
+        margin-bottom: 32px;
+    }
+</style>

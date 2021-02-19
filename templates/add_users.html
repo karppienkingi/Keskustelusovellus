@@ -4,12 +4,15 @@
 </div>
 <br>
 
-{% for message in messages %}
+<b>Add people to your conversation area by typing in their username:</b>
+<p>
+<form action="/add" method="POST">
+<input type="text" name="username"> 
+<input type="submit" value="Add"> | <span style="color:maroon">{{ message }}</span>
+<input type="hidden" name="id" value="{{ id }}">
+</form></p>
 
-<a href="/convo/{{ message[2] }}">{{ message[0] }}</a>| <b>{{ message[1] }}</b>
-<br>
-
-{% endfor %}
+If you don't want to add any more members, return to front page
 
 <hr>
 <a href="/">Back to front page</a>
