@@ -6,10 +6,11 @@ tsoha-projekti
 Tämä on perinteinen keskustelusovellus, johon voit:
 
 * Luoda oman käyttäjän
-* Luoda oman keskustelun tai ottaa osaa toisen käyttäjän viestiketjuun
-* Jos valitset käyttäjällesi ylläpito-oikeudet voit luoda omia salaisia alueita, jonne on pääsy vain haluamillasi käyttäjillä
+* Luoda oman keskustelun tai kommentoida toisen käyttäjän viestiketjuun
+* Voit myöhemmin poistaa tai muokata lähettämiäsi viestejä
+* Jos valitset käyttäjällesi ylläpito-oikeudet voit luoda omia salaisia alueita, jonne on pääsy vain alueelle lisäämilläsi käyttäjillä
 * Viestejä voit etsiä hakutoiminnon avulla, kaikista viestiketjuista 
 
-Tällä hetkellä voit luoda sivustolle omat tunnuksesi ja aloittaa viestiketjuja tai kommentoida niihin annetuilla alueilla.
+Testaamaan pääset luomalla oman käyttäjän sivustolle
 
 Pääset <a href="https://zipboing.herokuapp.com/">tästä</a> sovellukseen.
