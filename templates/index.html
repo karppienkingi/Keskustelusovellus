@@ -58,7 +58,9 @@
         <br>
         {% else %}
         <p>
+            {% if session.user_id %}
         <h2>Your private conversation areas</h2>
+            {% endif %}
         </p>
         {% endif %}
 
