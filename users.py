@@ -47,10 +47,7 @@ def admin():
     sql = "SELECT admin FROM users WHERE id=:id"
     result = db.session.execute(sql, {"id":id})
     admin = result.fetchone()[0]
-    if admin == 1:
-        return True
-    else:
-        return False
+    return admin == 1
 
 def check_rights(user_id, area_id):
     sql = "SELECT user_id FROM accessrights WHERE user_id=:user_id AND area_id=:area_id"

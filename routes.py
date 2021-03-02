@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect, session
-import users
+import users, convos, areas
 from db import db
 
 
@@ -66,19 +66,12 @@ def create():
     topic = request.form["topic"]
     if topic == "":
         return render_template("error.html", message = "You have to have a topic on your conversation")
-    message = request.form["message"]
     area_id = request.form["id"]
     starter_id = users.user_id()
-    sql = "INSERT INTO topics(topic, starter_id, area_id, created_at) \
-        VALUES (:topic, :starter_id, :area_id, NOW()) RETURNING id"
-    result = db.session.execute(sql, {"topic":topic, "starter_id":starter_id, "area_id":area_id})
-    topic_id = result.fetchone()[0]
-    db.session.commit()
+    topic_id = convos.create_convo(topic, area_id, starter_id)
+    message = request.form["message"]
     if message != "":
-        sql = "INSERT INTO messages(message, sender_id, topic_id, visibility, sent_at) \
-            VALUES (:message, :sender_id, :topic_id, :visibility, NOW())"
-        db.session.execute(sql, {"message":message, "sender_id":starter_id, "topic_id":topic_id, "visibility":1})
-        db.session.commit()
+        convos.send_message(message, starter_id, topic_id, 1)
     return redirect("/")
 
 @app.route("/convo/<int:id>")
@@ -102,11 +95,7 @@ def send():
     user_id = users.user_id()
     message = request.form["message"]
     if message != "":
-        visibility = 1
-        sql = "INSERT INTO messages (message, sender_id, topic_id, visibility, sent_at) \
-            VALUES (:message, :sender_id, :topic_id, :visibility, NOW())"
-        db.session.execute(sql, {"message":message, "sender_id":user_id, "topic_id":topic_id, "visibility":1 })
-        db.session.commit()
+        convos.send_message(message, user_id, topic_id, 1)
     else:
         return render_template("error.html", message = "message couldn't be sent")
 
@@ -114,11 +103,9 @@ def send():
 
 @app.route("/delete", methods=["POST"])
 def delete():
-    id = request.form["id"]
     message_id = request.form["message_id"]
-    sql = "UPDATE messages SET visibility=0 WHERE id=:id"
-    result = db.session.execute(sql, {"id":message_id})
-    db.session.commit()
+    convos.delete_message(message_id)
+    id = request.form["id"]
     return redirect("/convo/"+str(id))
 
 @app.route("/edit/<int:id>", methods=["POST"])
@@ -132,9 +119,7 @@ def update(id):
 def update_message():
     message = request.form["message"]
     id = request.form["id"]
-    sql = "UPDATE messages SET message=:message WHERE id=:id"
-    db.session.execute(sql, {"message":message, "id":id})
-    db.session.commit()
+    convos.update_message(message, id)
     sql = "SELECT topic_id FROM messages WHERE id=:id"
     result = db.session.execute(sql, {"id":id})
     topic_id = result.fetchone()[0]
@@ -143,14 +128,9 @@ def update_message():
 @app.route("/search")
 def search():
     word = request.args["word"]
-    visibility = 1
     if word == "":
         return redirect("/")
-    sql = "SELECT messages.message, users.username, topics.id FROM messages, users, topics \
-        WHERE visibility=:visibility AND messages.sender_id=users.id AND topics.id=messages.topic_id \
-            AND messages.message LIKE :word"
-    result = db.session.execute(sql, {"visibility":visibility, "word":"%"+word+"%"})
-    messages = result.fetchall()
+    messages = convos.search(1, word)
     if len(messages) == 0:
         return render_template("error.html", message = "There were no search results")
     return render_template("search.html", messages = messages)
@@ -165,13 +145,8 @@ def create_private():
     if name == "":
         return render_template("error.html", message = "Area has to have a name")
     user_id = users.user_id()
-    sql = "INSERT INTO areas(name, user_id) VALUES (:name, :user_id) RETURNING id"
-    result = db.session.execute(sql, {"name":name, "user_id":user_id})
-    area_id = result.fetchone()[0]
-    db.session.commit()
-    sql = "INSERT INTO accessrights(area_id, user_id) VALUES (:area_id, :user_id)"
-    db.session.execute(sql, {"area_id":area_id, "user_id":user_id}) 
-    db.session.commit()
+    area_id = areas.create_area(name, user_id)
+    areas.give_accessrights(area_id, user_id)
     return redirect("add_users/"+str(area_id))
 
 @app.route("/add_users/<int:id>")
@@ -195,7 +170,5 @@ def add():
     user_id = result.fetchone()[0]
     if users.check_rights(user_id, area_id):
         return render_template("add_users.html", id=area_id, message="That user already has accessrights")
-    sql = "INSERT INTO accessrights(area_id, user_id) VALUES (:area_id, :user_id)"
-    db.session.execute(sql, {"area_id":area_id ,"user_id":user_id})
-    db.session.commit()
+    areas.give_accessrights(area_id, user_id)
     return render_template("add_users.html", id = area_id)
