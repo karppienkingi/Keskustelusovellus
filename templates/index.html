@@ -93,9 +93,9 @@
             {% for topic in topics %}
             {% if topic[2] == private_area[1] %}
             <ul>
-                <li>{{ topic[1] }} | <a href="/convo/{{ topic[0] }}">Join</a><br></li>
-                {% endif %}
-            </ul>
+            <li>{{ topic[1] }} | <a href="/convo/{{ topic[0] }}">Join</a><br></li>
+            {% endif %}
+        </ul>
             {% endfor %}
 
         </div>
@@ -165,13 +165,14 @@
         color: cornflowerblue;
     }
 
-    ul {
-        margin: 5px0px;
-    }
 
     ul li {
         background-color: lavender;
         margin: 2px;
         list-style-type: circle;
+    }
+
+    li > a {
+        color: cornflowerblue;
     }
 </style>
