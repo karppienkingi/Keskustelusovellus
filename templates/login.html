@@ -1,18 +1,43 @@
-<h1><span style="color:pink">Zip</span>Boing</h1>
-<hr>
+<div class="header">
+    <a href="/">
+        <h1><span style="color:pink">Zip</span>Boing</h1>
+    </a>
+    <hr>
+</div>
 <br>
-<form action="/login" method="POST">
-Username: <input type="text" name="username">
-<p>
-    Salasana: <input type="password" name="password">
-<p>
-    <input type="submit" value="Sign in">
-</form>
-If you don't have an account, you can create one <a href="/register">here</a>
+
+<body>
+    <form action="/login" method="POST">
+        Username: <input type="text" name="username">
+        <p>
+            Salasana: <input type="password" name="password">
+        <p>
+            <input type="submit" value="Sign in">
+    </form>
+    If you don't have an account, you can create one <a href="/register">here</a>
+    <hr>
+    <a href="/">Back to front page</a>
+</body>
 
 <style>
-    a {
-            color: cornflowerblue;
-            
-        }
+    .header {
+        padding-top: 20px;
+        text-align: left;
+
+    }
+
+    .header>a {
+        text-decoration: none;
+        color: inherit;
+        font-size: large;
+    }
+
+    body {
+        margin-left: 30px;
+    }
+
+    body>a {
+        color: cornflowerblue;
+
+    }
 </style>

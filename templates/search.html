@@ -1,33 +1,60 @@
 <div class="header">
-    <a href="/"><h1><span style="color:pink">Zip</span>Boing</h1></a>
+    <a href="/">
+        <h1><span style="color:pink">Zip</span>Boing</h1>
+    </a>
     <hr>
 </div>
 <br>
 
-{% for message in messages %}
+<body>
+    <h3>Search results:</h3>
+    {% for message in messages %}
 
-<a href="/convo/{{ message[2] }}">{{ message[0] }}</a>| <b>{{ message[1] }}</b>
-<br>
 
-{% endfor %}
+    <p>
+        <li><a href="/convo/{{ message[2] }}">{{ message[0] }}</a>| <b>{{ message[1] }}</b></li>
+        <br>
+    <p>
 
-<hr>
-<a href="/">Back to front page</a>
+
+        {% endfor %}
+
+        <hr>
+        <a href="/">Back to front page</a>
+</body>
 
 <style>
     .header {
-        padding: 20px;
+        padding-top: 20px;
         text-align: left;
-        
+
     }
-    
-    .header > a {
+
+    .header>a {
         text-decoration: none;
         color: inherit;
         font-size: large;
     }
-    a {
-            color: cornflowerblue;
-            
-        }
+
+    body {
+        margin-left: 30px;
+    }
+
+    body  >a {
+        color: cornflowerblue;
+
+    }
+
+    li > a {
+        color: cornflowerblue;
+
+    }
+
+    p {
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        text-decoration: underline;
+    }
 </style>

@@ -4,6 +4,7 @@
 </div>
 <br>
 
+<body>
 <h3><b>{{ topic[1] }}</b></h3><br><br>
 
 
@@ -33,15 +34,18 @@
 
 {% if session.user_id %}
 <form action="/send" method="POST">
-    <textarea name="message" rows="6" cols="40"></textarea><br>
+    <textarea name="message" rows="6" cols="40" placeholder="Write your comment..."></textarea><br>
     <p>
         <input type="submit" value="Send">
         <input type="hidden" name="id" value="{{ topic[0] }}">
 </form>
+{% else %}
+You have to sign in if you want to comment
 {% endif %}
 
 <hr>
 <a href="/">Back to front page</a>
+</body>
 
 <style>
     .messagebox {
@@ -55,7 +59,7 @@
         border-width: 2px;
     }
     .header {
-        padding: 20px;
+        padding-top: 20px;
         text-align: left;
         
     }
@@ -66,12 +70,15 @@
         font-size: large;
     }
 
-    a {
+    body>a {
         color: cornflowerblue;
 
+
     }
 
-    p {
-        text-indent: 262px;
+    body {
+        margin-left: 30px;
     }
+
+    
 </style>

@@ -1,40 +1,49 @@
 <div class="header">
-    <a href="/"><h1><span style="color:pink">Zip</span>Boing</h1></a>
+    <a href="/">
+        <h1><span style="color:pink">Zip</span>Boing</h1>
+    </a>
     <hr>
 </div>
 <br>
+
 <body>
-<p>
-    Creating a new conversation to <b>{{ area }}</b>
-</p>
-<form action="/create" method="POST">
-    <p><b>Topic:</b><br>
-        <input type="text" name="topic">
-        <br>
-        <b>Message:</b><br>
-        <textarea name="message" rows="6" cols="40"></textarea>
-        <input type="hidden" name="id" value="{{ id }}">
-    </p><br>
-    <input type="submit" value="Create">
-</form>
-<hr>
-<a href="/">Back to front page</a>
+    <p>
+        Creating a new conversation to <b>{{ area }}</b>
+    </p>
+    <form action="/create" method="POST">
+        <p><b>Topic:</b><br>
+            <input type="text" name="topic">
+            <br>
+            <b>Message:</b><br>
+            <textarea name="message" rows="6" cols="40"></textarea>
+            <input type="hidden" name="id" value="{{ id }}">
+        </p><br>
+        <input type="submit" value="Create">
+    </form>
+    <hr>
+    <a href="/">Back to front page</a>
 </body>
 
 <style>
     .header {
-        padding: 20px;
+        padding-top: 20px;
         text-align: left;
-        
+
     }
-    
-    .header > a {
+
+    .header>a {
         text-decoration: none;
         color: inherit;
         font-size: large;
     }
+
     body>a {
         color: cornflowerblue;
 
+
+    }
+
+    body {
+        margin-left: 30px;
     }
 </style>

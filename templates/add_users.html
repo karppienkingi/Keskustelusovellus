@@ -1,36 +1,45 @@
 <div class="header">
-    <a href="/"><h1><span style="color:pink">Zip</span>Boing</h1></a>
+    <a href="/">
+        <h1><span style="color:pink">Zip</span>Boing</h1>
+    </a>
     <hr>
 </div>
 <br>
 
-<b>Add people to your conversation area by typing in their username:</b>
-<p>
-<form action="/add" method="POST">
-<input type="text" name="username"> 
-<input type="submit" value="Add"> | <span style="color:maroon">{{ message }}</span>
-<input type="hidden" name="id" value="{{ id }}">
-</form></p>
+<body>
+    <b>Add people to your conversation area by typing in their username:</b>
+    <p>
+    <form action="/add" method="POST">
+        <input type="text" name="username">
+        <input type="submit" value="Add">  <span style="color:maroon"> | {{ message }}</span>
+        <input type="hidden" name="id" value="{{ id }}">
+    </form>
+    </p>
 
-If you don't want to add any more members, return to front page
+    If you don't want to add any more members, return to front page
 
-<hr>
-<a href="/">Back to front page</a>
+    <hr>
+    <a href="/">Back to front page</a>
+</body>
 
 <style>
     .header {
-        padding: 20px;
+        padding-top: 20px;
         text-align: left;
-        
+
     }
-    
-    .header > a {
+
+    .header>a {
         text-decoration: none;
         color: inherit;
         font-size: large;
     }
+
     a {
-            color: cornflowerblue;
-            
-        }
+        color: cornflowerblue;
+
+    }
+    body {
+        margin-left: 30px;
+    }
 </style>

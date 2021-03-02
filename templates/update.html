@@ -1,30 +1,33 @@
 <div class="header">
-    <a href="/"><h1><span style="color:pink">Zip</span>Boing</h1></a>
+    <a href="/">
+        <h1><span style="color:pink">Zip</span>Boing</h1>
+    </a>
     <hr>
 </div>
 <br>
 
 
+<body>
+    <form action="/update_message" method="POST">
+        <textarea name="message" rows="6" cols="40">{{ message }}</textarea><br>
+        <p>
+            <input type="submit" value="Update">
+            <input type="hidden" name="id" value="{{ id }}">
+    </form>
 
-<form action="/update_message" method="POST">
-    <textarea name="message" rows="6" cols="40">{{ message }}</textarea><br>
-    <p>
-        <input type="submit" value="Update">
-        <input type="hidden" name="id" value="{{ id }}">
-</form>
 
-
-<hr>
-<a href="/">Back to front page</a>
+    <hr>
+    <a href="/">Back to front page</a>
+</body>
 
 <style>
     .header {
         padding: 20px;
         text-align: left;
-        
+
     }
-    
-    .header > a {
+
+    .header>a {
         text-decoration: none;
         color: inherit;
         font-size: large;
@@ -37,5 +40,9 @@
 
     p {
         text-indent: 262px;
+    }
+
+    body {
+        margin-left: 30px;
     }
 </style>
